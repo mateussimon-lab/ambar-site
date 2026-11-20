@@ -1,0 +1,19 @@
+{
+  "intro": "Com sede em Bento Gonçalves, na Serra Gaúcha, e criada em 2015, a Âmbar nasceu com o propósito de produzir uma arquitetura capaz de responder ao tempo presente sem perder vínculo com a paisagem, a matéria e a cultura local.\n\nCom atuação voltada à arquitetura residencial e multifamiliar, o escritório desenvolve projetos que articulam contemporaneidade, permanência e relação com o contexto urbano e regional.\n\nAlém da arquitetura, a atuação da Âmbar também envolve planejamento urbano, viabilidade e gestão técnica de empreendimentos, integrando arquitetura, cidade e processo em uma abordagem mais ampla e estratégica.",
+  "teamIntro": "Na Âmbar, os arquitetos Ângela e Bernardo reúnem diferentes trajetórias profissionais com uma atuação complementar e multidisciplinar.",
+  "team": [
+    {
+      "name": "Ângela Petroli",
+      "role": "Arquiteta e urbanista",
+      "qualifications": "Formada pela Universidade de Caxias do Sul, onde também concluiu mestrado voltado à sustentabilidade em edificações multifamiliares. Sua atuação inclui planejamento urbano, docência em arquitetura e participação em conselhos municipais ligados ao planejamento e ao patrimônio cultural.",
+      "photo": "/assets/img/Angela-AMBAR.jpg"
+    },
+    {
+      "name": "Bernardo Gehlen",
+      "role": "Arquiteto e urbanista",
+      "qualifications": "Formado pela Universidade do Vale do Rio dos Sinos, com especialização em design moveleiro. Sua trajetória inclui execução de edifícios multifamiliares, desenvolvimento de produto e vivência na Itália, ampliando seu repertório sobre matéria, desenho e processo construtivo.",
+      "photo": "/assets/img/BER-SOLO.jpg"
+    }
+  ],
+  "teamOutro": "A convergência de distintas formações e vivências orienta o trabalho do escritório: uma arquitetura contemporânea, conectada à cidade, à técnica e à experiência cotidiana dos espaços."
+}

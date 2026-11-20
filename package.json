@@ -1,0 +1,17 @@
+{
+  "name": "ambar-arquitetura",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site institucional da Âmbar Arquitetura (Bento Gonçalves/RS)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/build.mjs && python3 -m http.server 8080 --directory dist"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "bodyFont": "calibri",
+  "headingFont": "calibri",
+  "menuFont": "calibri",
+  "bodySize": "16",
+  "menuSize": "0.82",
+  "submenuSize": "0.72",
+  "labelSize": "0.76",
+  "heroTitleSize": "4.7",
+  "pageTitleSize": "4.35",
+  "sectionTitleSize": "3.25",
+  "leadSize": "1.08",
+  "cardTitleSize": "1.45"
+}

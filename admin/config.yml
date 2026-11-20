@@ -1,0 +1,259 @@
+# =====================================================================
+#  Painel de edição (Decap CMS) — Âmbar Arquitetura
+#  Linha "repo": usuário/nome do repositório no GitHub (veja CONFIGURACAO-INICIAL.md)
+# =====================================================================
+
+backend:
+  name: github
+  repo: mateussimon-lab/ambar-site
+  branch: main
+  commit_messages:
+    create: 'Âmbar: novo item em {{collection}}'
+    update: 'Âmbar: atualização de {{collection}} ({{slug}})'
+    delete: 'Âmbar: remoção em {{collection}}'
+    uploadMedia: 'Âmbar: nova foto {{path}}'
+    deleteMedia: 'Âmbar: foto removida {{path}}'
+
+locale: pt
+site_url: https://ambarach.netlify.app
+display_url: https://ambarach.netlify.app
+
+# Fotos enviadas pelo painel ficam nesta pasta do repositório.
+media_folder: assets/img/uploads
+public_folder: /assets/img/uploads
+
+collections:
+  # ------------------------------------------------------------------
+  #  TEXTOS E FOTOS DAS PÁGINAS
+  # ------------------------------------------------------------------
+  - name: paginas
+    label: Páginas do site
+    description: Textos e fotos de cada página. Escolha a página, edite e clique em Publicar.
+    editor:
+      preview: false
+    files:
+      - name: home
+        label: Home — fotos da capa
+        file: content/home.json
+        fields:
+          - label: Fotos da capa
+            name: heroImages
+            widget: list
+            hint: Arraste uma foto para mudar a ordem. A primeira aparece primeiro e as demais passam sozinhas.
+            field:
+              label: Foto
+              name: foto
+              widget: image
+              choose_url: false
+
+      - name: sobre
+        label: Sobre — escritório e sócios
+        file: content/sobre.json
+        fields:
+          - label: Texto sobre o escritório
+            name: intro
+            widget: text
+            hint: Um parágrafo por bloco. Deixe uma linha em branco entre um parágrafo e outro.
+          - label: Frase de abertura dos sócios
+            name: teamIntro
+            widget: text
+          - label: Sócios
+            name: team
+            widget: list
+            label_singular: sócio
+            summary: '{{fields.name}}'
+            fields:
+              - label: Nome
+                name: name
+                widget: string
+              - label: Cargo
+                name: role
+                widget: string
+              - label: Formação e atuação
+                name: qualifications
+                widget: text
+              - label: Foto
+                name: photo
+                widget: image
+                required: false
+                choose_url: false
+          - label: Frase final dos sócios
+            name: teamOutro
+            widget: text
+
+      - name: arquitetura
+        label: Arquitetura — frases de abertura
+        file: content/arquitetura.json
+        fields:
+          - label: Frase de abertura da página Arquitetura
+            name: lead
+            widget: text
+          - label: Texto que aparece ao escolher "Casas"
+            name: casas
+            widget: text
+          - label: Texto que aparece ao escolher "Edifícios"
+            name: edificios
+            widget: text
+          - label: Texto que aparece ao escolher "Outros"
+            name: outros
+            widget: text
+
+      - name: planejamento
+        label: Planejamento
+        file: content/planejamento.json
+        fields:
+          - label: Frase de abertura da página
+            name: lead
+            widget: text
+          - label: Seções (aparecem no submenu e na página)
+            name: sections
+            widget: list
+            label_singular: seção
+            summary: '{{fields.title}}'
+            fields:
+              - label: Título da seção
+                name: title
+                widget: string
+                hint: Este título também aparece no submenu do site.
+              - label: Frase de abertura da seção
+                name: lead
+                widget: text
+              - label: Texto da seção
+                name: text
+                widget: text
+
+      - name: gestao
+        label: Gestão Técnica
+        file: content/gestao.json
+        fields:
+          - label: Frase de abertura da página
+            name: lead
+            widget: text
+
+      - name: contato
+        label: Contato e rodapé
+        file: content/contato.json
+        fields:
+          - label: E-mail
+            name: email
+            widget: string
+          - label: Endereço
+            name: address
+            widget: string
+          - label: Busca do mapa
+            name: mapQuery
+            widget: string
+            hint: Texto que o Google Maps usa para achar o endereço no mapa. Normalmente o endereço completo, com cidade e estado.
+          - label: Link do Instagram
+            name: instagram
+            widget: string
+            hint: 'Endereço completo, por exemplo https://www.instagram.com/ambar.arquitetura'
+          - label: Nome do Instagram (como aparece escrito)
+            name: instagramLabel
+            widget: string
+            hint: 'Por exemplo @ambar.arquitetura'
+
+      - name: geral
+        label: Nome do escritório (topo do site)
+        file: content/geral.json
+        fields:
+          - label: Nome
+            name: brand
+            widget: string
+          - label: Descrição ao lado do nome
+            name: descriptor
+            widget: string
+
+  # ------------------------------------------------------------------
+  #  PROJETOS
+  # ------------------------------------------------------------------
+  - name: projetos
+    label: Projetos
+    description: Para criar um projeto novo, clique em "Adicionar projeto" no fim da lista. Arraste os projetos para mudar a ordem em que aparecem.
+    editor:
+      preview: false
+    files:
+      - name: projetos
+        label: Todos os projetos
+        file: content/projetos.json
+        fields:
+          - label: Projetos
+            name: projetos
+            widget: list
+            label_singular: projeto
+            summary: '{{fields.title}} · {{fields.category}}'
+            collapsed: true
+            fields:
+              - label: Código interno
+                name: id
+                widget: hidden
+                required: false
+              - label: Nome do projeto
+                name: title
+                widget: string
+              - label: Categoria
+                name: category
+                widget: select
+                options:
+                  - Casas
+                  - Edifícios
+                  - Outros
+              - label: Local
+                name: location
+                widget: string
+                hint: Cidade e estado, por exemplo Bento Gonçalves/RS
+              - label: Ano
+                name: year
+                widget: string
+                hint: Ano que aparece junto ao nome, por exemplo 2024
+              - label: Foto de capa
+                name: cover
+                widget: image
+                required: false
+                choose_url: false
+                hint: Foto que aparece no cartão do projeto. Se ficar vazia, vale a primeira foto da galeria.
+              - label: Resumo
+                name: summary
+                widget: text
+                required: false
+                hint: Uma frase curta que aparece no cartão do projeto.
+              - label: Texto do projeto
+                name: description
+                widget: text
+                required: false
+                hint: Um parágrafo por bloco. Deixe uma linha em branco entre um parágrafo e outro.
+              - label: Galeria de fotos
+                name: images
+                widget: list
+                hint: Arraste uma foto para mudar a ordem. A primeira é a que abre a página do projeto.
+                field:
+                  label: Foto
+                  name: foto
+                  widget: image
+                  choose_url: false
+              - label: Área do terreno
+                name: lotArea
+                widget: string
+                required: false
+                hint: Por exemplo 1.800m²
+              - label: Área construída
+                name: builtArea
+                widget: string
+                required: false
+                hint: Por exemplo 16.095m²
+              - label: Ano do projeto
+                name: projectYear
+                widget: string
+                required: false
+              - label: Ano de conclusão da obra
+                name: completionYear
+                widget: string
+                required: false
+              - label: Construtora
+                name: builder
+                widget: string
+                required: false
+              - label: Fotografia (crédito)
+                name: photography
+                widget: string
+                required: false

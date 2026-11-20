@@ -1,0 +1,9 @@
+# Como a Netlify publica o site a cada alteração no GitHub:
+# 1) roda "npm run build" (reduz o peso das fotos e monta a pasta "dist")
+# 2) publica a pasta "dist"
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
