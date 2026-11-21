@@ -57,12 +57,13 @@ O painel precisa de uma "autorização" para entrar com a conta do GitHub.
 
 1. No GitHub: **Settings → Developer settings → OAuth Apps → New OAuth App** e preencha:
    - Application name: `Âmbar CMS`
-   - Homepage URL: `https://ambarach.netlify.app`
-   - Authorization callback URL: `https://api.netlify.com/auth/done`
+   - Homepage URL: `https://ambararquitetura.com.br`
+   - Authorization callback URL: `https://api.netlify.com/auth/done` (este não muda)
 2. Clique em **Register application**. Depois clique em **Generate a new client secret**.
    Guarde o **Client ID** e o **Client Secret** (o secret só aparece uma vez).
-3. Na Netlify, no site novo: **Site configuration → Access & security → OAuth → Install provider**.
+3. Na Netlify, no projeto novo: **Project configuration → Security → OAuth → Authentication providers → Install provider**.
    Escolha **GitHub** e cole o Client ID e o Client Secret.
+   (A Netlify chama o site de "Project" nas telas mais novas; se o nome estiver diferente, procure por OAuth em Security.)
 
 ## Passo 5 — Dar acesso à Ângela
 
@@ -72,7 +73,7 @@ O painel precisa de uma "autorização" para entrar com a conta do GitHub.
 
 ## Passo 6 — Testar
 
-1. Abra `https://ambarach.netlify.app/admin/`.
+1. Abra `https://ambararquitetura.com.br/admin/`.
 2. Clique em **Login with GitHub** e autorize.
 3. Faça uma alteração pequena (por exemplo, uma letra num texto), clique em **Publicar** e
    confira se, depois de alguns minutos, o site mostra a mudança. Depois desfaça a alteração.
@@ -84,7 +85,7 @@ Pronto. A partir daqui, é só usar o painel.
 ## Se algo não funcionar
 
 - **"Failed to load config" / tela em branco no /admin/:** a linha `repo` do `admin/config.yml`
-  ainda está com o texto `TROCAR`, ou foi escrita errada.
+  foi escrita errada (o formato é `usuário/nome-do-repositório`).
 - **Login abre e fecha sem entrar:** confira o *callback URL* do passo 4 e se o Client ID e o
   Secret foram colados no site certo da Netlify.
 - **Entra, mas não consegue salvar:** a pessoa não aceitou o convite do passo 5, ou não tem

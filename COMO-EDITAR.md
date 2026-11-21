@@ -7,7 +7,7 @@ Você não precisa mexer em nenhum arquivo. Tudo é feito pelo painel de ediçã
 
 ## Entrar
 
-1. Abra **https://ambarach.netlify.app/admin/** (também há o link "Administração" no rodapé do site).
+1. Abra **https://ambararquitetura.com.br/admin/** (também há o link "Administração" no rodapé do site).
 2. Clique em **Login with GitHub** e entre com a sua conta.
 
 ## Alterar um texto ou uma foto
