@@ -107,7 +107,7 @@
         lead: data.planejamento.lead || "",
         sections: Array.isArray(data.planejamento.sections) ? data.planejamento.sections : []
       },
-      management: { lead: data.gestao.lead || "" },
+      management: { lead: data.gestao.lead || "", text: data.gestao.text || "" },
       theme: data.tema,
       projects: normalizeProjects(data.projetos.projetos)
     };
@@ -465,6 +465,31 @@
     paint(initialCategory);
   }
 
+  // Cartão da página Planejamento: mesmo desenho dos cartões de projeto (imagem + título + uma frase).
+  function renderPlanningCard(section, index) {
+    const article = el("article", "project-card");
+
+    if (section.image) {
+      const media = el("div", "project-card__media");
+      const image = el("img");
+      image.src = imagePath(section.image);
+      image.alt = section.title;
+      image.loading = index > 1 ? "lazy" : "eager";
+      media.appendChild(image);
+      article.appendChild(media);
+    }
+
+    const body = el("div", "project-card__body");
+    const top = el("div");
+    top.appendChild(el("p", "project-meta", "Planejamento"));
+    top.appendChild(el("h3", "", section.title));
+    top.appendChild(el("p", "", section.lead));
+    if (section.text) top.appendChild(el("p", "planning-card__text", section.text));
+    body.appendChild(top);
+    article.appendChild(body);
+    return article;
+  }
+
   function renderPlanning(content) {
     const planning = content.planning || {};
     const sections = Array.isArray(planning.sections) ? planning.sections : [];
@@ -479,18 +504,7 @@
     function paint(activeTitle) {
       const visibleSections = activeTitle ? sections.filter((section) => section.title === activeTitle) : sections;
       if (grid) {
-        grid.replaceChildren(
-          ...visibleSections.map((section) => {
-            const card = el("article", "planning-card");
-            card.append(
-              el("span", "planning-card__eyebrow", "Planejamento"),
-              el("h2", "", section.title),
-              el("p", "planning-card__lead", section.lead),
-              el("p", "", section.text)
-            );
-            return card;
-          })
-        );
+        grid.replaceChildren(...visibleSections.map(renderPlanningCard));
       }
     }
 
