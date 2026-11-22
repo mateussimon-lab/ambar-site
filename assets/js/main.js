@@ -363,8 +363,13 @@
 
     const map = $("[data-map]");
     if (map) {
-      map.src = `https://www.google.com/maps?q=${encodeURIComponent(content.site.mapQuery)}&output=embed`;
+      map.src = mapUrl(content.site.mapQuery);
     }
+  }
+
+  // Aceita um endereço em texto OU coordenadas ("-29.1668,-51.5214"). Coordenadas são o jeito mais preciso.
+  function mapUrl(query) {
+    return `https://www.google.com/maps?q=${encodeURIComponent(query || "")}&z=17&output=embed`;
   }
 
   function renderAbout(content) {
@@ -616,28 +621,40 @@
     setText("[data-contact-title]", content.site.contactCta);
     const map = $("[data-map]");
     if (map) {
-      map.src = `https://www.google.com/maps?q=${encodeURIComponent(content.site.mapQuery)}&output=embed`;
+      map.src = mapUrl(content.site.mapQuery);
     }
 
     const form = $("[data-contact-form]");
     const message = $("[data-form-message]");
     if (form) {
-      form.addEventListener("submit", (event) => {
+      const button = form.querySelector('button[type="submit"]');
+      const say = (text, isError) => {
+        if (!message) return;
+        message.textContent = text;
+        message.style.color = isError ? "#9b2c2c" : "";
+      };
+
+      form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const data = new FormData(form);
-        const subject = "Contato pelo site da Âmbar Arquitetura";
-        const body = [
-          `Nome: ${data.get("name") || ""}`,
-          `E-mail: ${data.get("email") || ""}`,
-          `Telefone: ${data.get("phone") || ""}`,
-          "",
-          "Mensagem:",
-          data.get("message") || ""
-        ].join("\n");
-        if (message) {
-          message.textContent = "Abrindo o seu aplicativo de e-mail para concluir o envio.";
+        if (data.get("bot-field")) return; // campo-isca preenchido: é robô, ignora em silêncio
+
+        if (button) button.disabled = true;
+        say("Enviando...", false);
+        try {
+          const response = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(data).toString()
+          });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          form.reset();
+          say("Mensagem enviada. Obrigado pelo contato, responderemos em breve.", false);
+        } catch (error) {
+          say(`Não foi possível enviar agora. Escreva para ${content.site.email || "o nosso e-mail"} e responderemos.`, true);
+        } finally {
+          if (button) button.disabled = false;
         }
-        window.location.href = `mailto:${content.site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       });
     }
   }
