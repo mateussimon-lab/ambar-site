@@ -1882,17 +1882,22 @@ strong,
   border: 1px solid var(--linha);
 }
 
-.project-grid[data-project-grid] {
+.project-grid[data-project-grid],
+.project-grid[data-planning-grid] {
   gap: 28px;
   border: 0;
   background: transparent;
 }
 
-.project-grid[data-project-grid] .project-card {
+.project-grid[data-project-grid] .project-card,
+.project-grid[data-planning-grid] .project-card {
   border: 1px solid var(--linha);
 }
 
 .page-title [data-architecture-lead],
+.page-title [data-planning-lead],
+.page-title [data-management-lead],
+.page-title [data-management-text],
 .architecture-intro {
   max-width: 640px;
   margin: 0 0 28px;
@@ -2208,4 +2213,51 @@ body[data-page="home"] .map iframe {
     max-width: none;
     justify-self: stretch;
   }
+}
+
+.project-grid[data-planning-grid] .project-card__body {
+  min-height: 0;
+}
+
+.project-grid[data-planning-grid] .planning-card__text {
+  margin-top: 16px;
+}
+
+/* Título da página alinhado pela primeira linha do texto à direita (Arquitetura, Planejamento, Gestão Técnica) */
+.page-title--aligned .page-title__grid {
+  align-items: start;
+}
+
+.page-title--aligned .section-kicker {
+  min-height: calc(1.08rem * 1.55);
+  margin-bottom: 0;
+}
+
+.page-title__text [data-management-lead] {
+  margin-bottom: 18px;
+}
+
+.page-title__text [data-management-text] {
+  margin-bottom: 0;
+}
+
+/* Fotos da galeria do projeto: sempre inteiras na tela, em qualquer tamanho de janela.
+   A foto cresce até caber na largura E na altura visível (altura da janela menos o cabeçalho). */
+.project-gallery .image-stack {
+  justify-items: center;
+}
+
+.project-gallery .image-stack img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 112px);
+  max-height: calc(100svh - 112px);
+  object-fit: contain;
+}
+
+/* "Equipe" (página Sobre) com o mesmo tamanho e cor dos títulos das outras páginas (Arquitetura, Planejamento, Gestão Técnica) */
+body:not(.admin-page):not(.login-page) .team-heading .section-kicker {
+  font-size: var(--ambar-size-lead, 1.08rem);
+  color: var(--texto-suave);
 }
