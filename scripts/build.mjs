@@ -82,6 +82,36 @@ for (const entry of await fs.readdir(root, { withFileTypes: true })) {
     stats.copied += 1;
   }
 }
+// Arquivos soltos na raiz que o navegador e o Google procuram.
+for (const name of ["robots.txt", "favicon.ico"]) {
+  try {
+    await fs.copyFile(path.join(root, name), path.join(dist, name));
+    stats.copied += 1;
+  } catch {
+    console.warn(`[build] ${name} não encontrado na raiz: ignorado.`);
+  }
+}
+
+// sitemap.xml é montado aqui a partir de content/projetos.json,
+// então projetos novos criados pelo painel entram sozinhos.
+try {
+  const SITE = "https://ambararquitetura.com.br";
+  const data = JSON.parse(await fs.readFile(path.join(root, "content", "projetos.json"), "utf8"));
+  const slugify = (text) =>
+    String(text).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const ids = (data.projetos || []).map((item) => item.id || slugify(item.title)).filter(Boolean);
+  const pages = ["/", "/somos.html", "/projetos.html", "/planejamento.html", "/gestao.html", "/contato.html"];
+  const urls = [...pages, ...[...new Set(ids)].map((id) => `/projeto.html?id=${encodeURIComponent(id)}`)];
+  const xml =
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    urls.map((u) => `  <url><loc>${SITE}${u.replace(/&/g, "&amp;")}</loc></url>`).join("\n") +
+    "\n</urlset>\n";
+  await fs.writeFile(path.join(dist, "sitemap.xml"), xml);
+  stats.copied += 1;
+} catch (error) {
+  console.warn(`[build] não foi possível montar o sitemap.xml: ${error.message}`);
+}
+
 for (const folder of FOLDERS) {
   const source = path.join(root, folder);
   try {
