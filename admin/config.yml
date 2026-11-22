@@ -115,12 +115,21 @@ collections:
                 name: title
                 widget: string
                 hint: Este título também aparece no submenu do site.
+              - label: Imagem do cartão
+                name: image
+                widget: image
+                required: false
+                choose_url: false
+                hint: Aparece no cartão da página Planejamento. Use uma imagem na proporção 4:5 (mais alta que larga).
               - label: Frase de abertura da seção
                 name: lead
                 widget: text
+                hint: Esta é a frase que aparece no cartão.
               - label: Texto da seção
                 name: text
                 widget: text
+                required: false
+                hint: Texto que aparece no cartão, logo abaixo da frase de abertura.
 
       - name: gestao
         label: Gestão Técnica
@@ -129,6 +138,11 @@ collections:
           - label: Frase de abertura da página
             name: lead
             widget: text
+          - label: Texto da página
+            name: text
+            widget: text
+            required: false
+            hint: Parágrafo que aparece logo abaixo da frase de abertura.
 
       - name: contato
         label: Contato e rodapé
