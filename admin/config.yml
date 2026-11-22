@@ -15,8 +15,8 @@ backend:
     deleteMedia: 'Âmbar: foto removida {{path}}'
 
 locale: pt
-site_url: https://ambarach.netlify.app
-display_url: https://ambarach.netlify.app
+site_url: https://ambararquitetura.com.br
+display_url: https://ambararquitetura.com.br
 
 # Fotos enviadas pelo painel ficam nesta pasta do repositório.
 media_folder: assets/img/uploads
@@ -143,7 +143,7 @@ collections:
           - label: Busca do mapa
             name: mapQuery
             widget: string
-            hint: Texto que o Google Maps usa para achar o endereço no mapa. Normalmente o endereço completo, com cidade e estado.
+            hint: 'O que o Google Maps usa para marcar o ponto. O mais preciso é colar as coordenadas, assim: -29.1668,-51.5214 (no Google Maps, clique com o botão direito no local exato e clique nos números que aparecem no alto do menu para copiar). Se ficar um endereço em texto, o mapa pode errar o ponto.'
           - label: Link do Instagram
             name: instagram
             widget: string
